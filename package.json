@@ -1,26 +1,28 @@
 {
-  "name": "stake-limit-service",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Amar-Omerika/stake-limit-service.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Amar-Omerika/stake-limit-service/issues"
-  },
-  "homepage": "https://github.com/Amar-Omerika/stake-limit-service#readme",
-  "dependencies": {
-    "express": "^5.1.0"
-  },
-  "devDependencies": {
-    "eslint": "^9.24.0"
-  }
+	"name": "stake-limit-service",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon server.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Amar-Omerika/stake-limit-service.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Amar-Omerika/stake-limit-service/issues"
+	},
+	"homepage": "https://github.com/Amar-Omerika/stake-limit-service#readme",
+	"dependencies": {
+		"express": "^5.1.0",
+		"mongoose": "^8.13.2"
+	},
+	"devDependencies": {
+		"eslint": "^9.24.0"
+	}
 }
