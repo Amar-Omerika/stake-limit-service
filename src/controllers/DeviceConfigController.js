@@ -18,6 +18,16 @@ class DeviceConfigController {
         }
     }
 
+    async getAllDevices(req, res) {
+        try {
+            const result = await deviceConfigService.getAllDevices(req.query);
+            res.status(200).send(result);
+        } catch (error) {
+            console.error('Error retrieving devices:', error);
+            res.status(500).send({ error: 'Error retrieving devices' });
+        }
+    }
+
 }
 
 export default new DeviceConfigController();

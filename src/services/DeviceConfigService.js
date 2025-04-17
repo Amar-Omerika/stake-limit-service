@@ -1,5 +1,5 @@
 import DeviceConfig from '../models/DeviceConfig.js';
-
+import { paginate, buildFilter } from '../utils/Pagination.js';
 class DeviceConfigService {
     async updateDeviceConfig(deviceId, configData) {
         const { timeDuration, stakeLimit, hotPercentage, restrictionExpires } = configData;
@@ -28,6 +28,54 @@ class DeviceConfigService {
             { new: true, upsert: true }
         );
     }
+
+    async getAllDevices(queryParams = {}) {
+        // Define filter mapping for device config fields
+        const filterMapping = {
+            deviceId: { field: 'deviceId', type: 'contains' },
+            hotPercentageMin: { field: 'hotPercentage', type: 'numeric' },
+            hotPercentageMax: { field: 'hotPercentage', type: 'numeric' },
+            stakeLimitMin: { field: 'stakeLimit', type: 'numeric' },
+            stakeLimitMax: { field: 'stakeLimit', type: 'numeric' },
+            timeDurationMin: { field: 'timeDuration', type: 'numeric' },
+            timeDurationMax: { field: 'timeDuration', type: 'numeric' },
+            createdAtStart: { field: 'createdAt', type: 'date' },
+            createdAtEnd: { field: 'createdAt', type: 'date' }
+        };
+
+        // Build filter based on query parameters
+        const filter = buildFilter(queryParams, filterMapping);
+
+        // Custom filter handling for isBlocked if present
+        if (queryParams.isBlocked !== undefined) {
+            const isBlocked = queryParams.isBlocked === 'true';
+            if (isBlocked) {
+                filter.blockedUntil = { $gt: new Date() };
+            } else {
+                filter.$or = [
+                    { blockedUntil: null },
+                    { blockedUntil: { $lte: new Date() } }
+                ];
+            }
+        }
+
+        // Extract pagination options
+        const options = {
+            page: queryParams.page || 1,
+            limit: queryParams.limit || 10,
+            sortBy: queryParams.sortBy || 'deviceId',
+            sortOrder: queryParams.sortOrder || 'asc'
+        };
+
+        // Use the paginate utility to get paginated results
+        const result = await paginate(DeviceConfig, filter, options);
+
+        return {
+            devices: result.data,
+            pagination: result.pagination
+        };
+    }
+
 
 }
 
