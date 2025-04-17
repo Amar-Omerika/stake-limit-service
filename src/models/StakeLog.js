@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const stakeLogSchema = new mongoose.Schema({
   id: {
@@ -24,4 +24,4 @@ const stakeLogSchema = new mongoose.Schema({
 // Za brže pretrage stake logova po uređaju u vremenskom rasponu
 stakeLogSchema.index({ deviceId: 1, timestamp: -1 });
 
-module.exports = mongoose.model('StakeLog', stakeLogSchema);
+export default mongoose.model('StakeLog', stakeLogSchema);

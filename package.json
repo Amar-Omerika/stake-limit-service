@@ -1,12 +1,14 @@
 {
-	"name": "stake-limit-service",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"start": "nodemon server.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
+    "name": "stake-limit-service",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "nodemon server.js",
+        "seed": "node src/db/seed.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Amar-Omerika/stake-limit-service.git"
