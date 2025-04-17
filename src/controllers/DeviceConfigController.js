@@ -1,6 +1,31 @@
 import deviceConfigService from '../services/DeviceConfigService.js';
 
 class DeviceConfigController {
+    async createDeviceConfig(req, res) {
+        try {
+            const deviceConfig = await deviceConfigService.createDeviceConfig(req.body);
+
+            // Send 201 Created status with the new resource
+            res.status(201).send({
+                message: 'Device configuration created successfully',
+                deviceConfig,
+                deviceId: deviceConfig.deviceId
+            });
+        } catch (error) {
+            console.error('Error creating device configuration:', error);
+
+            if (error.message.includes('already exists')) {
+                return res.status(409).send({ error: error.message });
+            }
+
+            if (error.message.includes('must be between')) {
+                return res.status(400).send({ error: error.message });
+            }
+
+            res.status(500).send({ error: 'Internal server error' });
+        }
+    }
+
     async updateDeviceConfig(req, res) {
         try {
             const { deviceId } = req.params;
@@ -9,7 +34,6 @@ class DeviceConfigController {
         } catch (error) {
             console.error('Error updating device configuration:', error);
 
-            // Handle specific validation errors
             if (error.message.includes('must be between')) {
                 return res.status(400).send({ error: error.message });
             }

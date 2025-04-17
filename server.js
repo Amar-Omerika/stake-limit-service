@@ -12,9 +12,10 @@ app.use(express.json());
 app.post('/process-ticket', ticketController.processTicket);
 
 //device config routes
+app.post('/device-config', deviceConfigController.createDeviceConfig);
 app.put('/device-config/:deviceId', deviceConfigController.updateDeviceConfig);
 app.get('/device-config/:deviceId', deviceConfigController.getDeviceConfig);
-app.get('/device-configs', deviceConfigController.getAllDevices);
+app.get('/device-config', deviceConfigController.getAllDevices);
 app.delete('/device-config/:deviceId', deviceConfigController.deleteDeviceConfig);
 
 app.listen(3000, () => {
