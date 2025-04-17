@@ -2,8 +2,7 @@ import mongoose from 'mongoose';
 import connectDB from './mongoose.js';
 import DeviceConfig from '../models/DeviceConfig.js';
 import StakeLog from '../models/StakeLog.js';
-
-
+import { v4 as uuidv4 } from 'uuid';  // Import UUID generator
 
 async function seedDatabase() {
     try {
@@ -13,9 +12,13 @@ async function seedDatabase() {
         await DeviceConfig.deleteMany({});
         await StakeLog.deleteMany({});
 
-        // Create sample device configs
+        // Generate device UUIDs
+        const device1Id = uuidv4();
+        const device2Id = uuidv4();
+
+
         const device1 = await DeviceConfig.create({
-            deviceId: 'device-001',
+            deviceId: device1Id,
             timeDuration: 3600,  // 1 hour in seconds
             stakeLimit: 10000,
             hotPercentage: 80,
@@ -23,7 +26,7 @@ async function seedDatabase() {
         });
 
         const device2 = await DeviceConfig.create({
-            deviceId: 'device-002',
+            deviceId: device2Id,
             timeDuration: 7200,  // 2 hours in seconds
             stakeLimit: 5000,
             hotPercentage: 70,
@@ -31,24 +34,23 @@ async function seedDatabase() {
             blockedUntil: new Date(Date.now() + 3600000)  // Blocked for 1 hour from now
         });
 
-        // Create sample stake logs
         await StakeLog.create({
-            id: 'log-001',
-            deviceId: 'device-001',
+            id: uuidv4(),
+            deviceId: device1Id,
             stake: 1000,
             timestamp: new Date()
         });
 
         await StakeLog.create({
-            id: 'log-002',
-            deviceId: 'device-001',
+            id: uuidv4(),
+            deviceId: device1Id,
             stake: 2000,
             timestamp: new Date(Date.now() - 3600000)  // 1 hour ago
         });
 
         await StakeLog.create({
-            id: 'log-003',
-            deviceId: 'device-002',
+            id: uuidv4(),
+            deviceId: device2Id,
             stake: 1500,
             timestamp: new Date()
         });
