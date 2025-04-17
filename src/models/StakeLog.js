@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const stakeLogSchema = new mongoose.Schema({
   id: {
@@ -8,7 +8,8 @@ const stakeLogSchema = new mongoose.Schema({
   },
   deviceId: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   stake: {
     type: Number,
@@ -16,12 +17,11 @@ const stakeLogSchema = new mongoose.Schema({
   },
   timestamp: {
     type: Date,
-    required: true,
     default: Date.now
   }
 });
 
-// Za brže pretrage stake logova po uređaju u vremenskom rasponu
+// For faster searches of stake logs by device in a time range
 stakeLogSchema.index({ deviceId: 1, timestamp: -1 });
 
 export default mongoose.model('StakeLog', stakeLogSchema);

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const deviceConfigSchema = new mongoose.Schema({
   deviceId: {
@@ -9,8 +9,8 @@ const deviceConfigSchema = new mongoose.Schema({
   timeDuration: {
     type: Number,
     required: true,
-    min: 300,    // 5 minuta
-    max: 86400   // 24 sata
+    min: 300,    // 5 minutes in seconds
+    max: 86400   // 24 hours in seconds
   },
   stakeLimit: {
     type: Number,
@@ -27,8 +27,8 @@ const deviceConfigSchema = new mongoose.Schema({
   restrictionExpires: {
     type: Number,
     required: true,
-    min: 60 // 1 minuta
-    // 0 = ne ističe nikada
+    min: 60,    // 1 minute in seconds
+    default: 0  // never expires
   },
   blockedUntil: {
     type: Date,
