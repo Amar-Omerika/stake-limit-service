@@ -17,6 +17,21 @@ class DeviceConfigController {
             res.status(500).send({ error: 'Internal server error' });
         }
     }
+    async deleteDeviceConfig(req, res) {
+        try {
+            const { deviceId } = req.params;
+            const deviceConfig = await deviceConfigService.deleteDeviceConfig(deviceId);
+
+            if (!deviceConfig) {
+                return res.status(404).send({ error: 'Device configuration not found' });
+            }
+
+            res.status(200).send({ message: 'Device configuration deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting device configuration:', error);
+            res.status(500).send({ error: 'Internal server error' });
+        }
+    }
 
     async getAllDevices(req, res) {
         try {
@@ -27,6 +42,22 @@ class DeviceConfigController {
             res.status(500).send({ error: 'Error retrieving devices' });
         }
     }
+    async getDeviceConfig(req, res) {
+        try {
+            const { deviceId } = req.params;
+            const deviceConfig = await deviceConfigService.getDeviceConfigByDeviceId(deviceId);
+
+            if (!deviceConfig) {
+                return res.status(404).send({ error: 'Device configuration not found' });
+            }
+
+            res.status(200).send(deviceConfig);
+        } catch (error) {
+            console.error('Error retrieving device configuration:', error);
+            res.status(500).send({ error: 'Internal server error' });
+        }
+    }
+
 
 }
 

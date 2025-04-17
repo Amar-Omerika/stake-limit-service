@@ -13,7 +13,9 @@ app.post('/process-ticket', ticketController.processTicket);
 
 //device config routes
 app.put('/device-config/:deviceId', deviceConfigController.updateDeviceConfig);
+app.get('/device-config/:deviceId', deviceConfigController.getDeviceConfig);
 app.get('/device-configs', deviceConfigController.getAllDevices);
+app.delete('/device-config/:deviceId', deviceConfigController.deleteDeviceConfig);
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');

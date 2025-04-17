@@ -28,7 +28,13 @@ class DeviceConfigService {
             { new: true, upsert: true }
         );
     }
-
+    async deleteDeviceConfig(deviceId) {
+        try {
+            return await DeviceConfig.findOneAndDelete({ deviceId });
+        } catch (error) {
+            throw error;
+        }
+    }
     async getAllDevices(queryParams = {}) {
         // Define filter mapping for device config fields
         const filterMapping = {
@@ -75,6 +81,14 @@ class DeviceConfigService {
             pagination: result.pagination
         };
     }
+    async getDeviceConfigByDeviceId(deviceId) {
+        try {
+            return await DeviceConfig.findOne({ deviceId });
+        } catch (error) {
+            throw error;
+        }
+    }
+
 
 
 }
