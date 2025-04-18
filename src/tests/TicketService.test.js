@@ -58,17 +58,15 @@ describe('TicketService - Stake Limit Scenarios', () => {
         expect(result.status).toBe('HOT');
     });
 
-    it('should return BLOCKED when total stake is >= stakeLimit', async () => {
-        // Existing stakes: 600, 300 (total 900)
-        await StakeLog.create([
-            { id: 'log5', deviceId, stake: 600, timestamp: new Date() },
-            { id: 'log6', deviceId, stake: 300, timestamp: new Date() }
-        ]);
-        // New ticket: 100 (total 1000 >= 999)
-        const ticketData = { id: 'ticket-blocked', deviceId, stake: 100 };
-        const result = await TicketService.processTicket(ticketData);
-        expect(result.status).toBe('BLOCKED');
-    });
-
-    
+    it("should return BLOCKED when total stake is >= stakeLimit", async () => {
+			// Existing stakes: 600, 300 (total 900)
+			await StakeLog.create([
+				{ id: "log5", deviceId, stake: 600, timestamp: new Date() },
+				{ id: "log6", deviceId, stake: 300, timestamp: new Date() },
+			]);
+			// New ticket: 100 (total 1000 >= 999)
+			const ticketData = { id: "ticket-blocked", deviceId, stake: 100 };
+			const result = await TicketService.processTicket(ticketData);
+			expect(result.status).toBe("BLOCKED");
+		});
 });
