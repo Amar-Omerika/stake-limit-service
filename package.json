@@ -1,31 +1,36 @@
 {
-    "name": "stake-limit-service",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "type": "module",
-    "scripts": {
-        "start": "nodemon server.js",
-        "seed": "node src/db/seed.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Amar-Omerika/stake-limit-service.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/Amar-Omerika/stake-limit-service/issues"
-    },
-    "homepage": "https://github.com/Amar-Omerika/stake-limit-service#readme",
-    "dependencies": {
-        "express": "^5.1.0",
-        "mongoose": "^8.13.2",
-        "uuid": "^11.1.0"
-    },
-    "devDependencies": {
-        "eslint": "^9.24.0"
-    }
+	"name": "stake-limit-service",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"start": "nodemon server.js",
+		"seed": "node src/db/seed.js",
+		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+		"test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Amar-Omerika/stake-limit-service.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Amar-Omerika/stake-limit-service/issues"
+	},
+	"homepage": "https://github.com/Amar-Omerika/stake-limit-service#readme",
+	"dependencies": {
+		"express": "^5.1.0",
+		"mongoose": "^8.13.2",
+		"uuid": "^11.1.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.26.10",
+		"@babel/preset-env": "^7.26.9",
+		"babel-jest": "^29.7.0",
+		"eslint": "^9.24.0",
+		"jest": "^29.7.0"
+	}
 }
