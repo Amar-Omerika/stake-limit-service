@@ -13,6 +13,7 @@ services:
       - MONGODB_URI=mongodb://mongodb:27017/stake-limit-service
       - NODE_ENV=development
       - API_KEY=test-local-key
+      - REDIS_URL=redis://redis:6379
     volumes:
       - ./:/app
       - /app/node_modules
@@ -27,5 +28,12 @@ services:
     environment:
       - MONGO_INITDB_DATABASE=stake-limit-service
 
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
 volumes:
   mongodb_data:
+  redis_data:

@@ -6,7 +6,7 @@ import deviceConfigController from './src/controllers/DeviceConfigController.js'
 import apiKeyAuth from "./src/middleware/auth.js";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
-
+import RedisCache from "./src/utils/RedisCache.js";
 
 // Db connection
 connectDB();
@@ -72,16 +72,22 @@ app.delete(
 );
 
 app.listen(3000, () => {
-  console.log('Server started on port 3000');
+	console.log("Server started on port 3000");
 });
 
-process.on('SIGINT', async () => {
-  try {
-    await mongoose.connection.close();
-    console.log('MongoDB connection closed due to app termination');
-    process.exit(0);
-  } catch (err) {
-    console.error('Error while closing MongoDB connection:', err);
-    process.exit(1);
-  }
+process.on("SIGINT", async () => {
+	try {
+		// Close MongoDB connection
+		await mongoose.connection.close();
+		console.log("MongoDB connection closed due to app termination");
+
+		// Close Redis connection
+		await RedisCache.disconnect();
+		console.log("Redis connection closed due to app termination");
+
+		process.exit(0);
+	} catch (err) {
+		console.error("Error while closing connections:", err);
+		process.exit(1);
+	}
 });
