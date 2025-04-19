@@ -5,8 +5,8 @@ db.createCollection('deviceconfigs');
 db.createCollection('stakelogs');
 
 // Initialize with sample data - matching seed.js structure
-const device1Id = 'device-001';
-const device2Id = 'device-002';
+const device1Id = "33fde188-5685-443b-8d72-162fae4e392d";
+const device2Id = "13a8febe-5c88-4d31-aec2-04dd029f2516";
 const currentDate = new Date();
 const oneHourLater = new Date(currentDate);
 oneHourLater.setHours(currentDate.getHours() + 1);

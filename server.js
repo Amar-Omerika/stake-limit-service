@@ -1,10 +1,12 @@
 import express from 'express';
+import mongoose from "mongoose";
 import connectDB from "./src/db/mongoose.js";
 import ticketController from './src/controllers/TicketController.js';
 import deviceConfigController from './src/controllers/DeviceConfigController.js';
 import apiKeyAuth from "./src/middleware/auth.js";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+
 
 // Db connection
 connectDB();
