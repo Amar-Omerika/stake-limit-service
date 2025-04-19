@@ -11,9 +11,9 @@ class RedisCache {
       });
       
       this.client.on('error', (err) => {
-        console.warn('Redis Client Error, falling back to no cache:', err.message);
-        this.enabled = false;
-      });
+				// console.warn('Redis Client Error, falling back to no cache:', err.message);
+				this.enabled = false;
+			});
       
       this.connect();
     } catch (error) {

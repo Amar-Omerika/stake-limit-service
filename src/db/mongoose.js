@@ -10,8 +10,6 @@ const connectDB = async () => {
 			"mongodb://localhost:27017/stake-limit-service";
 
 		await mongoose.connect(mongoURI, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
 			// Connection pool options
 			maxPoolSize: 10,
 			minPoolSize: 2,

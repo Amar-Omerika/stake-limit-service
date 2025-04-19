@@ -10,8 +10,32 @@ class TicketService {
 
 		const { id, deviceId, stake } = ticketData;
 
+		// Basic required field validation
 		if (!id || !deviceId || stake === undefined) {
 			throw new Error("Missing required fields");
+		}
+
+		// Validate stake value
+		if (typeof stake !== "number") {
+			throw new Error("Stake must be a number");
+		}
+
+		if (isNaN(stake) || !isFinite(stake)) {
+			throw new Error("Stake must be a valid number");
+		}
+
+		if (stake < 0) {
+			throw new Error("Stake cannot be negative");
+		}
+
+		if (stake > Number.MAX_SAFE_INTEGER) {
+			throw new Error("Stake value is too large");
+		}
+
+		// Check if ticket with this ID already exists
+		const existingTicket = await StakeLog.findOne({ id });
+		if (existingTicket) {
+			throw new Error("Ticket with this ID has already been processed");
 		}
 
 		// Try to get device config from cache first
