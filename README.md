@@ -33,7 +33,7 @@ docker-compose up
 ```
 The service will be available at http://localhost:3000
 
-### Using Docker
+### Manual Setup
 
 1. Manual Setup
 ```bash
