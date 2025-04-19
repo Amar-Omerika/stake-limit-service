@@ -1,11 +1,11 @@
-import express from 'express';
-import mongoose from "mongoose";
-import connectDB from "./src/db/mongoose.js";
-import ticketController from './src/controllers/TicketController.js';
-import deviceConfigController from './src/controllers/DeviceConfigController.js';
-import apiKeyAuth from "./src/middleware/auth.js";
+import express from "express";
 import helmet from "helmet";
+import mongoose from "mongoose";
 import rateLimit from "express-rate-limit";
+
+import connectDB from "./src/db/mongoose.js";
+import deviceConfigRoutes from "./src/routes/DeviceRoutes.js";
+import ticketRoutes from "./src/routes/TicketRoutes.js";
 import RedisCache from "./src/utils/RedisCache.js";
 
 // Db connection
@@ -25,13 +25,6 @@ const generalLimiter = rateLimit({
 });
 app.use(generalLimiter);
 
-// Specific stricter rate limit for ticket processing
-const ticketLimiter = rateLimit({
-	windowMs: 60 * 1000, // 1 minute
-	max: 30, // limit to 30 requests per minute
-	message: "Too many ticket requests, please try again later",
-});
-
 // CORS headers
 app.use((req, res, next) => {
 	res.setHeader("Access-Control-Allow-Origin", "*"); // Change in production
@@ -40,37 +33,11 @@ app.use((req, res, next) => {
 	next();
 });
 
-// Ticket route with additional specific rate limiting
-app.post(
-	"/process-ticket",
-	apiKeyAuth,
-	ticketLimiter,
-	ticketController.processTicket
-);
+// Routes
+app.use("/device-config", deviceConfigRoutes);
+app.use("/process-ticket", ticketRoutes);
 
-// Device config routes
-app.post(
-	"/device-config",
-	apiKeyAuth,
-	deviceConfigController.createDeviceConfig
-);
-app.put(
-	"/device-config/:deviceId",
-	apiKeyAuth,
-	deviceConfigController.updateDeviceConfig
-);
-app.get(
-	"/device-config/:deviceId",
-	apiKeyAuth,
-	deviceConfigController.getDeviceConfig
-);
-app.get("/device-config", apiKeyAuth, deviceConfigController.getAllDevices);
-app.delete(
-	"/device-config/:deviceId",
-	apiKeyAuth,
-	deviceConfigController.deleteDeviceConfig
-);
-
+// Start server
 app.listen(3000, () => {
 	console.log("Server started on port 3000");
 });
