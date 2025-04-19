@@ -107,7 +107,7 @@ Request body:
 {
   "deviceId": "e1372dd1-9c5f-4f5b-a797-51621a1fa348", 
   "timeDuration": 1800,
-  "stakeLimit": 999,
+  "stakeLimit": 400,
   "hotPercentage": 80,
   "restrictionExpires": 600
 }

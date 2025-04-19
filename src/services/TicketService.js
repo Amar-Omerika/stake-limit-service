@@ -79,7 +79,6 @@ class TicketService {
 
 		// Determine status
 		let status = "OK";
-
 		if (totalStake >= deviceConfig.stakeLimit) {
 			status = "BLOCKED";
 
@@ -89,8 +88,15 @@ class TicketService {
 				blockedUntil.setSeconds(
 					blockedUntil.getSeconds() + deviceConfig.restrictionExpires
 				);
+
+				// Instead of deviceConfig.save() which won't work with cached objects
+				await DeviceConfig.findOneAndUpdate(
+					{ deviceId: deviceConfig.deviceId },
+					{ blockedUntil: blockedUntil }
+				);
+
+				// Update the in-memory object too
 				deviceConfig.blockedUntil = blockedUntil;
-				await deviceConfig.save();
 
 				// Update cache with new blocked status
 				await RedisCache.delete(deviceId);

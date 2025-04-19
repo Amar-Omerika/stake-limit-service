@@ -7,11 +7,20 @@ class RedisCache {
     
     try {
       this.client = createClient({
-        url: process.env.REDIS_URL || 'redis://localhost:6379'
-      });
-      
-      this.client.on('error', (err) => {
-				// console.warn('Redis Client Error, falling back to no cache:', err.message);
+				url: process.env.REDIS_URL || "redis://localhost:6379",
+				socket: {
+					reconnectStrategy: (retries) => {
+						if (retries > 3) {
+							this.enabled = false;
+							return false; // stop trying to reconnect
+						}
+						return Math.min(retries * 100, 3000); // reconnect after
+					},
+				},
+			});
+
+			this.client.on("error", (err) => {
+				console.warn("Redis connection issue:", err.message);
 				this.enabled = false;
 			});
       

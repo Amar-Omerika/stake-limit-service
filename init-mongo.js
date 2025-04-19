@@ -15,25 +15,26 @@ oneHourAgo.setHours(currentDate.getHours() - 1);
 
 // Device configs from seed.js
 db.deviceconfigs.insertMany([
-  {
-    deviceId: device1Id,
-    timeDuration: 3600,  // 1 hour in seconds
-    stakeLimit: 10000,
-    hotPercentage: 80,
-    restrictionExpires: 1800,  // 30 minutes in seconds
-    createdAt: currentDate,
-    updatedAt: currentDate
-  },
-  {
-    deviceId: device2Id,
-    timeDuration: 7200,  // 2 hours in seconds
-    stakeLimit: 5000,
-    hotPercentage: 70,
-    restrictionExpires: 3600,  // 1 hour in seconds
-    blockedUntil: oneHourLater,
-    createdAt: currentDate,
-    updatedAt: currentDate
-  }
+	{
+		deviceId: device1Id,
+		timeDuration: 1800, // 30 minutes in seconds
+		stakeLimit: 400,
+		hotPercentage: 80, // Hot threshold = 799.2
+		restrictionExpires: 600, // 10 minutes in seconds
+		blockedUntil: null, // Not blocked
+		createdAt: currentDate,
+		updatedAt: currentDate,
+	},
+	{
+		deviceId: device2Id,
+		timeDuration: 7200, // 2 hours in seconds
+		stakeLimit: 5000,
+		hotPercentage: 70,
+		restrictionExpires: 3600, // 1 hour in seconds
+		blockedUntil: oneHourLater,
+		createdAt: currentDate,
+		updatedAt: currentDate,
+	},
 ]);
 
 // Stake logs from seed.js
