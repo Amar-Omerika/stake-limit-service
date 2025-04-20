@@ -19,10 +19,10 @@ async function seedDatabase() {
 
         const device1 = await DeviceConfig.create({
             deviceId: device1Id,
-            timeDuration: 3600,  // 1 hour in seconds
-            stakeLimit: 10000,
+            timeDuration: 1800, // 30 minutes in seconds
+            stakeLimit: 400,
             hotPercentage: 80,
-            restrictionExpires: 1800  // 30 minutes in seconds
+            restrictionExpires: 600, // 10 minutes in seconds
         });
 
         const device2 = await DeviceConfig.create({
